@@ -1,0 +1,10 @@
+# ── Zsh configuration files ────────────────────────
+zsh/.p10k.zsh
+zsh/.shell.pre-oh-my-zsh
+zsh/.zcompdump-W2L-PC-LS-5.9
+zsh/.zcompdump-W2L-PC-LS-5.9.zwc
+zsh/.zsh_history
+
+# ── Submodule directories (if you ever want to treat them as plain dirs) ───
+zsh/oh-my-zsh/
+zsh/powerlevel10k/
