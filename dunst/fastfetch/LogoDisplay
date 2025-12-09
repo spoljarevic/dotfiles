@@ -1,0 +1,39 @@
+Logo options:
+  -l, --logo <logo>                          Set the logo source
+      --logo-type <enum>                     Set the type of the logo given in "--logo"
+      --logo-width <num>                     Set the width of the logo (in characters), if it is an image
+      --logo-height <num>                    Set the height of the logo (in characters), if it is an image
+      --logo-preserve-aspect-ratio <?bool>   Set if the logo should fill the specified width and height as much as possible without stretching
+      --logo-color-[1-9] <color>             Overwrite a color in the logo
+      --logo-padding <num>                   Set the padding on the left and the right of the logo
+      --logo-padding-left <num>              Set the padding on the left of the logo
+      --logo-padding-right <num>             Set the padding on the right of the logo
+      --logo-padding-top <num>               Set the padding on the top of the logo
+      --logo-print-remaining <?bool>         Whether to print the remaining logo, if it has more lines than modules to display
+      --logo-position <enum>                 Set the position of the logo should be displayed
+      --logo-recache <?bool>                 If true, regenerate image logo cache
+      --file <path>                          Short for --logo-type file --logo <path>
+      --file-raw <path>                      Short for --logo-type file-raw --logo <path>
+      --data <data>                          Short for --logo-type data --logo <data>
+      --data-raw <data>                      Short for --logo-type data-raw --logo <data>
+      --raw <path>                           Short for --logo-type raw --logo <path>
+      --sixel <path>                         Short for --logo-type sixel --logo <path>
+      --kitty <path>                         Short for --logo-type kitty --logo <path>
+      --kitty-direct <path>                  Short for --logo-type kitty-direct --logo <path>
+      --iterm <path>                         Short for --logo-type iterm --logo <path>
+      --chafa <path>                         Short for --logo-type chafa --logo <path>
+      --chafa-fg-only <?bool>                Produce character-cell output using foreground colors only
+      --chafa-symbols <str>                  Specify character symbols to employ in final output
+      --chafa-canvas-mode <enum>             Determine how colors are used in the output
+      --chafa-color-space <enum>             Set color space used for quantization
+      --chafa-dither-mode <enum>             Set output dither mode (No effect with 24-bit color)
+
+
+Kitty Terminal:
+fastfetch --logo ~/Pictures/Fastfetch/Who2Industries.png
+
+Foot Terminal DoubleLogo:
+fastfetch && chafa ~/Pictures/Fastfetch/Who2Industries.png
+
+Foot Terminal BlackBackground:
+fastfetch --sixel ~/Pictures/Fastfetch/Who2Industries.png --logo-width 40

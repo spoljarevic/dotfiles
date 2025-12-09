@@ -1,0 +1,47 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "chafa": true,
+  "imagemagick":true,
+	
+	//"logo": {
+  //"type": "raw",
+  //"source": "~/Pictures/Fastfetch/Who2Industries.txt", // 你的sixel文件路径
+  //"type": "kitty-direct", // 一定要选raw
+  //"type": "chafa",
+	//"type": "imagemagick7",
+	//"width": 40, // Width in columns
+  //"height": 20 }, //, //Height in rows
+
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+		"kernel",
+    "uptime",
+    "packages",
+    "shell",
+    //"display",
+    //"de",
+    "wm",
+    //"wmtheme",
+    //"theme",
+    //"icons",
+    //"font",
+    //"cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    //"swap",
+    "disk",
+    "localip",
+    "publicip",
+    //"battery",
+    //"poweradapter",
+    //"locale",
+    "break",
+    "colors"
+  ]
+}
