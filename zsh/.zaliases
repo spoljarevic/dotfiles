@@ -3,6 +3,9 @@ alias v="nvim"
 alias cl="clear"
 alias ff="fastfetch"
 
+# Redirects
+alias sudo="doas"
+
 # Memes
 alias neofetch="fastfetch"
 
