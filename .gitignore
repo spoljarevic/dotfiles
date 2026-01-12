@@ -9,3 +9,7 @@ zsh/.zsh_history
 # ── Submodule directories (if you ever want to treat them as plain dirs) ───
 zsh/oh-my-zsh/
 zsh/powerlevel10k/
+
+# ── Fastfetch image files ────────────────────────
+fastfetch/assets/*
+!fastfetch/assets/*.sixel
