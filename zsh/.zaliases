@@ -5,10 +5,10 @@ alias ff="fastfetch"
 
 # Redirects
 alias sudo="doas"
-alias cdgit="cd /mnt/storage/git/
-alias cdgitls="cd /mnt/storage/git/spoljarevic/
-alias cdgitw2i="cd /mnt/storage/git/who2industries/
-alias cdgitw2io="cd /mnt/storage/git/who2industries-odysee/
+alias cdgit="cd /mnt/storage/git/"
+alias cdgitls="cd /mnt/storage/git/spoljarevic/"
+alias cdgitw2i="cd /mnt/storage/git/who2industries/"
+alias cdgitw2io="cd /mnt/storage/git/who2industries-odysee/"
 # Memes
 alias neofetch="fastfetch"
 
