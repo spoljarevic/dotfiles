@@ -306,6 +306,11 @@ map("n", "<leader>gc", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Git 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    vim.lsp.buf.formatting_sync(nil, 200)
+    vim.lsp.buf.format({
+      timeout_ms = 200, 
+      filter = function(client)
+        return client.supports_method("textDocument/formatting")
+      end,
+    })
   end,
 })
