@@ -154,6 +154,54 @@ require("lazy").setup({
     },
   },
 
+
+  -----------------------------------------------------------------
+  -- Code Companion
+  -----------------------------------------------------------------
+{
+  "olimorris/codecompanion.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  cmd = { "CodeCompanion", "CodeCompanionChat" },
+  keys = {
+    { "<leader>cc", "<cmd>CodeCompanionChat<cr>", desc = "CodeCompanion Chat" },
+    { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
+  },
+  config = function()
+    require("codecompanion").setup({
+      -- This is a minimal config; works out of the box
+      -- You can customize adapters (OpenAI, Ollama, etc.) later
+    })
+  end,
+},
+
+  -----------------------------------------------------------------
+  -- Tabby
+  -----------------------------------------------------------------
+
+  {
+  "nanozuki/tabby.nvim",
+  dependencies = "nvim-tree/nvim-web-devicons",
+  event = "VimEnter",
+  config = function()
+    require("tabby").setup({
+      preset = "active_wins_at_tail",
+      option = {
+        theme = {
+          fill = "TabLineFill",
+          head = "TabLine",
+          current_tab = "TabLineSel",
+          tab = "TabLine",
+          win = "TabLine",
+          tail = "TabLine",
+        },
+      },
+    })
+  end,
+},
+
+
   -----------------------------------------------------------------
   -- LSP & Completion (new API)
   -----------------------------------------------------------------
@@ -301,6 +349,19 @@ map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Buffers" })
 map("n", "<leader>fh", ":Telescope help_tags<CR>", { desc = "Help tags" })
 map("n", "<leader>gs", ":Gitsigns preview_hunk<CR>", { desc = "Git hunk preview" })
 map("n", "<leader>gc", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Git blame line" })
+map("n", "<leader>cc", "<cmd>CodeCompanionChat<CR>", { desc = "AI Chat (CodeCompanion)" })
+map("n", "<leader>ca", "<cmd>CodeCompanionActions<CR>", { desc = "AI Actions (contextual)" })
+map("v", "<leader>ca", "<cmd>CodeCompanionActions<CR>", { desc = "AI Actions (selection)" })
+map("n", "<leader>ce", "<cmd>CodeCompanionExplain<CR>", { desc = "Explain code" })
+map("n", "<leader>cf", "<cmd>CodeCompanionFix<CR>", { desc = "Fix code" })
+map("n", "<leader>ct", "<cmd>CodeCompanionTests<CR>", { desc = "Generate tests" })
+
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>to", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
+map("n", "<leader>tl", "<cmd>tabnext<CR>", { desc = "Next tab" })
+map("n", "<leader>th", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
+
+
 
 -- 6️⃣  Autocommands (auto‑format on save) ------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
