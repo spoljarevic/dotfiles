@@ -4,6 +4,8 @@
     "spacing": 5,
     // Choose the order of the modules
     "modules-left": [
+        "custom/archlogo",
+        "custom/rhellogo",
         "hyprland/workspaces"
     ],
     "modules-center": [
@@ -72,7 +74,20 @@
     "custom/power": {
         "format": "󰐥",
         "on-click": "sleep 0.15 && powermenu"
+    },
+    "custom/archlogo": {
+        "format": " 󰣇",
+        "tooltip": "Arch Linux",
+        "on-click": "xdg-open https://archlinux.org",
+        "interval": 0
+    },
+    "custom/rhellogo": {
+        "format": " 󱄛 ", 
+        "tooltip": "Red Hat",
+        "on-click": "xdg-open https://redhat.com",
+        "interval": 0
     }
+
 }
 
 // vim: ft=jsonc

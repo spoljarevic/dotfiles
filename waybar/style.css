@@ -117,7 +117,7 @@ button {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#mpd {
+#mpd{
     padding: 0 9px;
     color: @text;
     border-radius: 15px;
