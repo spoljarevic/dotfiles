@@ -338,6 +338,11 @@ require("lazy").setup({
   -----------------------------------------------------------------
   { "folke/which-key.nvim", opts = {} },
 
+  -----------------------------------------------------------------
+  -- Firenvim (neovim for the browser (extension required)
+  -----------------------------------------------------------------
+  { 'glacambre/firenvim', build = ":call firenvim#install(0)" }
+
 }) -- end lazy.setup()
 
 -- 5️⃣  Global keymaps --------------------------------------------------------
