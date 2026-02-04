@@ -28,6 +28,11 @@ vim.o.tabstop         = 2
 
 -- 3️⃣  Helper to start LSP servers with the new API -----------------------
 local function setup_lsp(server_name, config)
+  -- 🔒 Skip server if binary is not available (fixes headless errors)
+  if vim.fn.executable(config.cmd[1]) ~= 1 then
+    return
+  end
+
   local default_cfg = {
     name = server_name,
     cmd = config.cmd,
@@ -37,7 +42,8 @@ local function setup_lsp(server_name, config)
     on_attach = config.on_attach,
     capabilities = config.capabilities,
   }
-  vim.lsp.start_client(default_cfg)
+
+  vim.lsp.start(default_cfg)
 end
 
 -- 4️⃣  Plugin list (lazy.nvim) ---------------------------------------------
@@ -46,43 +52,42 @@ require("lazy").setup({
   -----------------------------------------------------------------
   -- Theme: Catppuccin (fixed flavour field)
   -----------------------------------------------------------------
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
 
-{
-  "catppuccin/nvim",
-  name = "catppuccin",
-  priority = 1000,
-
-  opts = {
-    flavour               = "macchiato",
-    transparent_background = true,
-    integrations = {
-      telescope = true,
-      nvimtree  = true,
-      which_key = true,
-      cmp       = true,
-      lsp_trouble = true,
-      mason     = true,
-      notify    = true,
-      mini      = true,
+    opts = {
+      flavour                = "macchiato",
+      transparent_background = true,
+      integrations = {
+        telescope   = true,
+        nvimtree    = true,
+        which_key   = true,
+        cmp         = true,
+        lsp_trouble = true,
+        mason       = true,
+        notify      = true,
+        mini        = true,
+      },
     },
-  },
 
-  config = function(_, opts)
-    require("catppuccin").setup(opts)
-    vim.cmd.colorscheme "catppuccin"
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd.colorscheme "catppuccin"
 
-    local function clear_bg()
-      local groups = {
-        "Normal", "NormalFloat", "FloatBorder",
-        "SignColumn", "CursorLine", "EndOfBuffer"
-      }
-      for _, g in ipairs(groups) do
-        vim.api.nvim_set_hl(0, g, { bg = "NONE" })
+      local function clear_bg()
+        local groups = {
+          "Normal", "NormalFloat", "FloatBorder",
+          "SignColumn", "CursorLine", "EndOfBuffer"
+        }
+        for _, g in ipairs(groups) do
+          vim.api.nvim_set_hl(0, g, { bg = "NONE" })
+        end
       end
-    end
-    clear_bg()
-  end,
-},
+      clear_bg()
+    end,
+  },
 
   -----------------------------------------------------------------
   -- Core utilities
@@ -126,13 +131,17 @@ require("lazy").setup({
   -----------------------------------------------------------------
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("telescope").setup{
         defaults = {
           layout_strategy = "horizontal",
           layout_config = { preview_width = 0.55 },
+
+          -- 🔧 CRITICAL FIX: disable Tree-sitter only for Telescope previews
+          preview = {
+            treesitter = false,
+          },
         },
       }
     end,
@@ -154,92 +163,79 @@ require("lazy").setup({
     },
   },
 
-
   -----------------------------------------------------------------
   -- Code Companion
   -----------------------------------------------------------------
-{
-  "olimorris/codecompanion.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = { "CodeCompanion", "CodeCompanionChat" },
+    keys = {
+      { "<leader>cc", "<cmd>CodeCompanionChat<cr>", desc = "CodeCompanion Chat" },
+      { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
+    },
+    config = function()
+      require("codecompanion").setup({})
+    end,
   },
-  cmd = { "CodeCompanion", "CodeCompanionChat" },
-  keys = {
-    { "<leader>cc", "<cmd>CodeCompanionChat<cr>", desc = "CodeCompanion Chat" },
-    { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
-  },
-  config = function()
-    require("codecompanion").setup({
-      -- This is a minimal config; works out of the box
-      -- You can customize adapters (OpenAI, Ollama, etc.) later
-    })
-  end,
-},
 
   -----------------------------------------------------------------
   -- Tabby
   -----------------------------------------------------------------
-
   {
-  "nanozuki/tabby.nvim",
-  dependencies = "nvim-tree/nvim-web-devicons",
-  event = "VimEnter",
-  config = function()
-    require("tabby").setup({
-      preset = "active_wins_at_tail",
-      option = {
-        theme = {
-          fill = "TabLineFill",
-          head = "TabLine",
-          current_tab = "TabLineSel",
-          tab = "TabLine",
-          win = "TabLine",
-          tail = "TabLine",
+    "nanozuki/tabby.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    event = "VimEnter",
+    config = function()
+      require("tabby").setup({
+        preset = "active_wins_at_tail",
+        option = {
+          theme = {
+            fill = "TabLineFill",
+            head = "TabLine",
+            current_tab = "TabLineSel",
+            tab = "TabLine",
+            win = "TabLine",
+            tail = "TabLine",
+          },
         },
-      },
-    })
-  end,
-},
-
+      })
+    end,
+  },
 
   -----------------------------------------------------------------
   -- LSP & Completion (new API)
   -----------------------------------------------------------------
   {
-    "neovim/nvim-lspconfig",    
+    "neovim/nvim-lspconfig",
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.completion = {
-        completionItem = {
-          snippetSupport = true,
-        },
-      }
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-      local on_attach = function(client, bufnr)
-        local buf_set_keymap = function(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+      local on_attach = function(_, bufnr)
         local opts = { noremap = true, silent = true }
+        local map = function(lhs, rhs)
+          vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
+        end
 
-        buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-        buf_set_keymap("n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-        buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+        map("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+        map("K",  "<cmd>lua vim.lsp.buf.hover()<CR>")
+        map("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+        map("<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
       end
 
-      -- ==== Server configurations ====
       setup_lsp("pyright", {
         cmd = { "pyright-langserver", "--stdio" },
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      -- TypeScript – ts_ls (new name)
       setup_lsp("ts_ls", {
         cmd = { "typescript-language-server", "--stdio" },
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      -- Bash – bashls (unchanged)
       setup_lsp("bashls", {
         cmd = { "bash-language-server", "start" },
         on_attach = on_attach,
@@ -249,7 +245,7 @@ require("lazy").setup({
   },
 
   -----------------------------------------------------------------
-  -- Completion engine (nvim‑cmp) + snippets
+  -- Completion engine (nvim-cmp) + snippets
   -----------------------------------------------------------------
   {
     "hrsh7th/nvim-cmp",
@@ -273,11 +269,11 @@ require("lazy").setup({
           ["<Tab>"]     = cmp.mapping.select_next_item(),
           ["<S-Tab>"]   = cmp.mapping.select_prev_item(),
         }),
-        sources = cmp.config.sources({
+        sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
           { name = "path" },
-        })
+        },
       }
     end,
   },
@@ -309,24 +305,56 @@ require("lazy").setup({
   -----------------------------------------------------------------
   -- Neogit
   -----------------------------------------------------------------
-{
-  "NeogitOrg/neogit",
-  lazy = true,
-  dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "sindrets/diffview.nvim",        -- optional - Diff integration
+  {
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "nvim-mini/mini.pick",
+      "folke/snacks.nvim",
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+    },
+  },
 
-    -- Only one of these is needed.
-    "nvim-telescope/telescope.nvim", -- optional
-    "ibhagwan/fzf-lua",              -- optional
-    "nvim-mini/mini.pick",           -- optional
-    "folke/snacks.nvim",             -- optional
+  -----------------------------------------------------------------
+  -- Alpha dashboard
+  -----------------------------------------------------------------
+  {
+    "goolord/alpha-nvim",
+    lazy = false,
+    config = function()
+      local dashboard = require("alpha.themes.dashboard")
+
+      local banner = {}
+      local path = vim.fn.expand("~/.config/nvim/ascii.txt")
+      local fd = io.open(path, "r")
+      if fd then
+        for line in fd:lines() do
+          table.insert(banner, line)
+        end
+        fd:close()
+      else
+        banner = { "Neovim" }
+      end
+
+      dashboard.section.header.val = banner
+      dashboard.section.buttons.val = {
+        dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
+        dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
+        dashboard.button("n", "  New file", ":enew<CR>"),
+        dashboard.button("c", "  Config", ":e $MYVIMRC<CR>"),
+        dashboard.button("q", "  Quit", ":qa<CR>"),
+      }
+
+      require("alpha").setup(dashboard.opts)
+    end,
   },
-  cmd = "Neogit",
-  keys = {
-    { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
-  },
-},
 
   -----------------------------------------------------------------
   -- Comment toggler
@@ -334,14 +362,14 @@ require("lazy").setup({
   { "numToStr/Comment.nvim", opts = {} },
 
   -----------------------------------------------------------------
-  -- Which‑key (discoverability)
+  -- Which-key (discoverability)
   -----------------------------------------------------------------
   { "folke/which-key.nvim", opts = {} },
 
   -----------------------------------------------------------------
-  -- Firenvim (neovim for the browser (extension required)
+  -- Firenvim (neovim for the browser)
   -----------------------------------------------------------------
-  { 'glacambre/firenvim', build = ":call firenvim#install(0)" }
+  { "glacambre/firenvim", build = ":call firenvim#install(0)" },
 
 }) -- end lazy.setup()
 
@@ -366,17 +394,16 @@ map("n", "<leader>to", "<cmd>tabonly<CR>", { desc = "Close other tabs" })
 map("n", "<leader>tl", "<cmd>tabnext<CR>", { desc = "Next tab" })
 map("n", "<leader>th", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
 
-
-
--- 6️⃣  Autocommands (auto‑format on save) ------------------------------------
+-- 6️⃣  Autocommands (auto-format on save) ------------------------------------
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
     vim.lsp.buf.format({
-      timeout_ms = 200, 
+      timeout_ms = 200,
       filter = function(client)
         return client.supports_method("textDocument/formatting")
       end,
     })
   end,
 })
+
