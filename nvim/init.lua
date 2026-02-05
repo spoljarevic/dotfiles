@@ -330,6 +330,8 @@ require("lazy").setup({
     lazy = false,
     config = function()
       local dashboard = require("alpha.themes.dashboard")
+      dashboard.section.header.opts.hl = "AlphaHeader"
+
 
       local banner = {}
       local path = vim.fn.expand("~/.config/nvim/ascii.txt")
@@ -351,7 +353,10 @@ require("lazy").setup({
         dashboard.button("c", "  Config", ":e $MYVIMRC<CR>"),
         dashboard.button("q", "  Quit", ":qa<CR>"),
       }
-
+      vim.api.nvim_set_hl(0, "AlphaHeader", {
+        fg = require("catppuccin.palettes").get_palette("macchiato").blue,
+        bold = true,
+      })
       require("alpha").setup(dashboard.opts)
     end,
   },
