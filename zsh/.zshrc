@@ -12,6 +12,7 @@ fi
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export XDG_DATA_DIRS="${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
 export PATH="/home/ls/.local/bin:$PATH"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gcr/ssh"
 # source external files
 [[ -r ${ZDOTDIR:-$HOME}/.zaliases ]] && source ${ZDOTDIR:-$HOME}/.zaliases
 
@@ -119,3 +120,4 @@ source $ZSH/oh-my-zsh.sh
 export PODMAN_COMPOSE_PROVIDER=podman-compose
 
 export PATH=$PATH:/home/spoljarevic/.spicetify
+

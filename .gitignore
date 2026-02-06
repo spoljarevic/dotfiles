@@ -5,6 +5,8 @@ zsh/.zcompdump
 zsh/.zcompdump-W2L-PC-LS-5.9
 zsh/.zcompdump-W2L-PC-LS-5.9.zwc
 zsh/.zsh_history
+zsh/.zcompdump-W2L-ARCHPC-LS-5.9
+zsh/.zcompdump-W2L-ARCHPC-LS-5.9.zwc
 
 # ── Submodule directories (if you ever want to treat them as plain dirs) ───
 zsh/oh-my-zsh/
@@ -13,3 +15,80 @@ zsh/powerlevel10k/
 # ── Fastfetch image files ────────────────────────
 fastfetch/assets/*
 !fastfetch/assets/*.sixel
+
+# ── Desktop applications & GUI configs ───────────
+BraveSoftware/
+Element/
+Exodus/
+Ledger Live/
+Ledger Wallet/
+Mullvad VPN/
+Proton Mail/
+Proton Pass/
+VSCodium/
+VirtualBox/
+obs-studio/
+obsidian/
+onlyoffice/
+vesktop/
+warp-terminal/
+zed/
+zen/
+discord/
+
+# ── Development tools & SDKs ─────────────────────
+Dotfiles.wiki/
+Ladybird/
+QtProject.conf
+astro/
+atomic/
+ckb-next/
+depot_tools/
+github-copilot/
+go/
+kraken/
+monero-project/
+mov-cli/
+Proton/
+proton-drive-sync/
+
+# ── Desktop / system configuration ───────────────
+autostart/
+btop/
+dconf/
+gedit/
+ghostty/
+gtk-3.0/
+menus/
+mimeapps.list
+net.imput.helium/
+pulse/
+rclone/
+rofi/
+solaar/
+systemd/
+xdg-desktop/
+pavucontrol.ini
+
+# ── Browsers, mail, sync, crypto ─────────────────
+mozilla/
+qBittorrent/
+cake_wallet/
+me.proton.authenticator/
+
+# ── Hyprland / Wayland configs ───────────────────
+hypr/sakoora.hyprlock/
+hypr/hyprlock.conf.sakoora
+hypr/hyprpaper-amex-platinum.conf
+hypr/hyprpaper-linux-wifu.conf
+
+# ── Neovim generated / backup files ──────────────
+nvim/ascii.txt.bak
+nvim/init.lua.bak
+nvim/init.lua.bak.new
+nvim/lazy-lock.json
+
+# ── Miscellaneous files ──────────────────────────
+config.toml
+ls
+
