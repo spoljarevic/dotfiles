@@ -334,7 +334,8 @@ require("lazy").setup({
 
 
       local banner = {}
-      local path = vim.fn.expand("~/.config/nvim/ascii.txt")
+      local path = vim.fn.expand("~/.config/nvim/ascii-w2i.txt")
+
       local fd = io.open(path, "r")
       if fd then
         for line in fd:lines() do
