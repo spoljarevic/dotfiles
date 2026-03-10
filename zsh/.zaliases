@@ -12,6 +12,9 @@ alias cdgitw2io="cd /mnt/storage/git/who2industries-odysee/"
 # Memes
 alias neofetch="fastfetch"
 
+# TMP Commands
+alias spd="flatpak run io.github.damianbbitflipper.ProtonDriveSync start"
+
 # Git
 alias g="git"
 alias gst="git status"
