@@ -9,11 +9,15 @@ alias cdgit="cd /mnt/storage/git/"
 alias cdgitls="cd /mnt/storage/git/spoljarevic/"
 alias cdgitw2i="cd /mnt/storage/git/who2industries/"
 alias cdgitw2io="cd /mnt/storage/git/who2industries-odysee/"
+
 # Memes
 alias neofetch="fastfetch"
 
 # TMP Commands
-alias spd="flatpak run io.github.damianbbitflipper.ProtonDriveSync start"
+
+# Podman Container Commands
+alias rpk-systems="podman exec -it rackpeek rpk systems summary"
+alias rpk-services="podman exec -it rackpeek rpk services summary"
 
 # Git
 alias g="git"
