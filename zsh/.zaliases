@@ -18,13 +18,7 @@ alias neofetch="fastfetch"
 
 # Podman Container Commands
 ## Rackpeek
-alias rpk-summary="podman exec -it rackpeek rpk summary"
-alias rpk-servers="podman exec -it rackpeek rpk servers summary"
-alias rpk-switches="podman exec -it rackpeek rpk switches summary"
-alias rpk-routers="podman exec -it rackpeek rpk routers summary"
-alias rpk-firewalls="podman exec -it rackpeek rpk firewalls summary"
-alias rpk-systems="podman exec -it rackpeek rpk systems summary"
-alias rpk-services="podman exec -it rackpeek rpk services summary"
+alias rpk="podman exec -it rackpeek rpk"
 alias rpk-all="clear && podman exec -it rackpeek rpk summary && podman exec -it rackpeek rpk servers summary && podman exec -it rackpeek rpk switches summary && podman exec -it rackpeek rpk routers summary && podman exec -it rackpeek rpk firewalls summary && podman exec -it rackpeek rpk systems summary && podman exec -it rackpeek rpk services summary"
 
 # Git
