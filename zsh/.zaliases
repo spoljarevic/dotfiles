@@ -2,6 +2,7 @@
 alias v="nvim"
 alias cl="clear"
 alias ff="fastfetch"
+alias userd="systemctl --user"
 
 # Redirects
 alias sudo="doas"
@@ -16,6 +17,7 @@ alias neofetch="fastfetch"
 # TMP Commands
 
 # Podman Container Commands
+## Rackpeek
 alias rpk-summary="podman exec -it rackpeek rpk summary"
 alias rpk-servers="podman exec -it rackpeek rpk servers summary"
 alias rpk-switches="podman exec -it rackpeek rpk switches summary"
