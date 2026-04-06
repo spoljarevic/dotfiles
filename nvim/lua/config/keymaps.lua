@@ -33,6 +33,13 @@ map("n", "<leader>as", "<cmd>ClaudeCodeTreeAdd<CR>",      { desc = "Add file" })
 map("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<CR>",   { desc = "Accept diff" })
 map("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<CR>",     { desc = "Deny diff" })
 
+-- Remote SSHFS
+map("n", "<leader>rc", function() require("remote-sshfs.api").connect()    end, { desc = "SSH connect" })
+map("n", "<leader>rd", function() require("remote-sshfs.api").disconnect() end, { desc = "SSH disconnect" })
+map("n", "<leader>re", function() require("remote-sshfs.api").edit()       end, { desc = "SSH edit config" })
+map("n", "<leader>rf", ":RemoteSSHFSFindFiles<CR>", { desc = "SSH find files" })
+map("n", "<leader>rg", ":RemoteSSHFSLiveGrep<CR>",  { desc = "SSH live grep" })
+
 -- Tabs
 map("n", "<leader>tc", "<cmd>tabclose<CR>",    { desc = "Close tab" })
 map("n", "<leader>to", "<cmd>tabonly<CR>",     { desc = "Close other tabs" })
