@@ -13,6 +13,9 @@ alias cdgitw2i="cd /mnt/storage/git/who2industries/"
 # Memes
 alias neofetch="fastfetch"
 
+# Ansible Playbooks
+alias vpntoggle="ansible-playbook /mnt/storage/git/spoljarevic/ansible/Bash-Scripts\ to\ Ansible/vpn/vpntoggle.yml"
+
 # TMP Commands
 
 # Podman Container Commands
