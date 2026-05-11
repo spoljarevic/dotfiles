@@ -35,12 +35,11 @@ hl.config({
     },
 
     dwindle = {
-        pseudotile     = true,
         preserve_split = true,
     },
 
     master = {
-        new_status = true,
+        new_status = "master",
     },
 
     input = {
@@ -78,5 +77,5 @@ hl.window_rule({
 
 hl.window_rule({
     match   = { class = "brave-origin-nightly" },
-    opacity = { active = 0.75, inactive = 0.60 },
+    opacity = "0.75 0.60",
 })

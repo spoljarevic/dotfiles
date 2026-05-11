@@ -9,6 +9,7 @@ hl.bind(mainMod .. " + P",      hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J",      hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + C",      hl.dsp.window.close())
 hl.bind(mainMod .. " + K",      hl.dsp.exit())
+hl.bind(mainMod .. " + M",      hl.dsp.exec_cmd(MusicPlayer))
 
 -- Media / function keys
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(brightness .. " up"),   { locked = true })

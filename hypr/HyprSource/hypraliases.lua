@@ -1,6 +1,6 @@
 -- Monitor identifiers
-MonitorAOC  = "DP-2,1920x1080@144,0x0,1"
-MonitorBenQ = "DVI-D-1,1920x1080@60,1920x0,0"
+MonitorAOC  = "DP-1,1920x1080@144,0x0,1"
+MonitorBenQ = "DVI-D-1,1920x1080@60,1920x0,1"
 MonitorNB   = "eDP-1,1920x1080@60.02000,0x0,1.0"
 
 -- Applications
@@ -9,6 +9,13 @@ menu       = "tofi-drun --drun-launch=true"
 lockscreen = "hyprlock"
 hyprpicker = "hyprpicker -f hex -a -r"
 ScreenShot = [[timestamp=$(date +'%Y-%m-%d--%H-%M-%S') && file_path=~/Pictures/screenshots/hyprshot-$timestamp.png && grim -g "$(slurp -d)" - | tee "$file_path" | wl-copy && notify-send "Screenshot taken" "Hyprshot-$timestamp.png saved to ~/Pictures/screenshots/" && swayimg "$file_path"]]
+
+-- Scripts
+volume     = "~/Public/Scripts/External/EricMurphy/volume"
+brightness = "~/Public/Scripts/External/EricMurphy/backlight"
+bluetooth  = "~/Public/Scripts/Bluetooth"
+power      = "~/Public/Scripts/ComputerStatus.sh"
+wifi       = "~/Public/Scripts/Wifi.sh"
 
 -- Rice
 fastfetch_rice = terminal .. ' -e zsh -c "fastfetch; exec zsh"'
