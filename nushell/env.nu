@@ -97,7 +97,7 @@ path add "/opt/homebrew/sbin"
 path add ($env.HOME | path join ".turso")
 path add ($env.HOME | path join ".local/share/mise/shims")
 path add "/Users/omerxx/.local/bin"
-
+path add ($env.HOME | path join ".local/bin")
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
