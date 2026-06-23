@@ -75,7 +75,7 @@ hl.window_rule({
     suppress_event = "maximize",
 })
 
-hl.window_rule({
-    match   = { class = "brave-origin-nightly" },
-    opacity = "0.75 0.60",
-})
+-- hl.window_rule({
+--    match   = { class = "brave-origin-nightly" },
+--    opacity = "0.75 0.60",
+-- })

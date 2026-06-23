@@ -114,3 +114,4 @@ mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
 $env.EDITOR = "nvim"
+$env.SSH_AUTH_SOCK = ($env.XDG_RUNTIME_DIR | path join "gcr" "ssh")

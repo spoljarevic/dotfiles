@@ -894,6 +894,8 @@ $env.config = {
     ]
 }
 
+source ~/.config/nushell/themes/catppuccin_macchiato.nu
+
 def --env cx [arg] {
     cd $arg
     ls -l
@@ -910,6 +912,10 @@ alias oc = opencode
 
 def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
+}
+
+def pods [] {
+  podman ps --format json | from json | select Names Status Ports
 }
 
 # Git

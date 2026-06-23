@@ -122,3 +122,5 @@ export PODMAN_COMPOSE_PROVIDER=podman-compose
 
 export PATH=$PATH:/home/spoljarevic/.spicetify
 
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
