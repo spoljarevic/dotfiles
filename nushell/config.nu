@@ -270,7 +270,7 @@ $env.config = {
     }
 
     hooks: {
-        pre_prompt: [{|| 
+        pre_prompt: [{||
             if (which direnv | is-empty) {
                 return
             }
@@ -908,7 +908,7 @@ alias lt = eza --tree --level=2 --long --icons --git
 alias v = nvim
 alias as = aerospace
 alias asr = atuin scripts run
-alias oc = opencode 
+alias oc = opencode
 
 def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
@@ -950,6 +950,7 @@ alias kl = kubectl logs -f
 alias ke = kubectl exec -it
 
 source ~/.zoxide.nu
+alias z = zeditor
 source ~/.cache/carapace/init.nu
 source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
