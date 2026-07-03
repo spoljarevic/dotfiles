@@ -909,6 +909,7 @@ alias v = nvim
 alias as = aerospace
 alias asr = atuin scripts run
 alias oc = opencode
+alias dev = kitty --detach --session /home/ls/git/ls/Dotfiles/kitty/session-productivity.conf
 
 def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
