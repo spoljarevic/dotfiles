@@ -4,7 +4,7 @@ MonitorBenQ = "DVI-D-1,1920x1080@60,1920x0,1"
 MonitorNB   = "eDP-1,1920x1080@60.02000,0x0,1.0"
 
 -- Applications
-terminal   = "foot"
+terminal   = "kitty"
 menu       = "tofi-drun --drun-launch=true"
 lockscreen = "hyprlock"
 hyprpicker = "hyprpicker -f hex -a -r"
