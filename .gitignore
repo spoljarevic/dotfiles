@@ -15,6 +15,7 @@ zsh/powerlevel10k/
 # ── Fastfetch image files ────────────────────────
 fastfetch/assets/*
 !fastfetch/assets/*.sixel
+!fastfetch/assets/alastor.png
 
 # ── Desktop applications & GUI configs ───────────
 BraveSoftware/
