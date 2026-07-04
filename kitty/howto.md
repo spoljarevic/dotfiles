@@ -52,7 +52,7 @@ These are kitty defaults — already active, nothing new to configure.
 +------------+-----------+
 ```
 
-nvim starts focused; `Alt+arrow` to jump to the shell or claude pane. `Ctrl+Shift+→` moves to:
+shell starts focused; `Alt+arrow` to jump to the nvim or claude pane. `Ctrl+Shift+→` moves to:
 
 **Tab 2 — `terminal`**: a single plain shell, nothing special — split it further with `Ctrl+Shift+-` / `Ctrl+Shift+\` same as any other tab.
 
