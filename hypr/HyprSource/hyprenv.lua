@@ -26,7 +26,10 @@ hl.config({
             enabled  = true,
             size     = 2,
             passes   = 4,
-            vibrancy = 0.1696,
+            vibrancy = 0.2,
+            noise = 0.15,
+            contrast = 1.0,
+            
         },
     },
 
