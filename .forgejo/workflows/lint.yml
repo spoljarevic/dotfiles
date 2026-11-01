@@ -1,0 +1,47 @@
+name: lint
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  GITLEAKS_VERSION: 8.28.0
+  GITLEAKS_SHA256: a65b5253807a68ac0cafa4414031fd740aeb55f54fb7e55f386acb52e6a840eb
+  SHELLCHECK_VERSION: 0.11.0
+  SHELLCHECK_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+
+jobs:
+  lint:
+    # Codeberg hosted runner: 2 CPU / 4G / 5 min. Default image is
+    # ghcr.io/catthehacker/ubuntu:act-latest (has git, curl, python3).
+    runs-on: codeberg-small
+    timeout-minutes: 5
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          fetch-depth: 0 # gitleaks scans the whole history
+
+      - name: Install tools
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin" && cd "$(mktemp -d)"
+
+          curl -fsSLo gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum -c -
+          tar xzf gitleaks.tar.gz gitleaks && mv gitleaks "$HOME/.local/bin/"
+
+          curl -fsSLo shellcheck.tar.xz "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          echo "${SHELLCHECK_SHA256}  shellcheck.tar.xz" | sha256sum -c -
+          tar xJf shellcheck.tar.xz --strip-components=1 "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" && mv shellcheck "$HOME/.local/bin/"
+
+          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends lua5.4 >/dev/null
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Secret scan
+        run: gitleaks git . --no-banner --redact --verbose
+
+      - name: Lint & syntax check
+        env:
+          CI: "true"
+        run: .forgejo/scripts/check.sh

@@ -1,5 +1,6 @@
+#!/bin/bash
 # Go to assets folder where the image is
-cd /mnt/storage/git/spoljarevic/.config/fastfetch/assets
+cd /mnt/storage/git/spoljarevic/.config/fastfetch/assets || exit 1
 
 # Declare Variables
 FILEPATH=/mnt/storage/git/spoljarevic/.config/fastfetch/assets

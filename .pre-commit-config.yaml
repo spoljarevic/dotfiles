@@ -1,0 +1,15 @@
+# Same checks as .forgejo/workflows/lint.yml, but before the commit exists.
+# Setup:  pacman -S pre-commit shellcheck   then   pre-commit install
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+
+  - repo: local
+    hooks:
+      - id: dotfiles-check
+        name: dotfiles lint & syntax check
+        entry: .forgejo/scripts/check.sh
+        language: system
+        pass_filenames: true

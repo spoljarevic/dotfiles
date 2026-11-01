@@ -2,8 +2,9 @@
 
 # Function to preview images using chafa
 preview_image() {
-    local width=$(tput cols)
-    local height=$(tput lines)
+    local width height
+    width=$(tput cols)
+    height=$(tput lines)
     chafa --colors=256 --symbols=block --size="${width}x${height}" "$1" 2>/dev/null
 }
 
