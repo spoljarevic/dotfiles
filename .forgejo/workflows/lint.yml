@@ -15,7 +15,7 @@ jobs:
   lint:
     # Codeberg hosted runner: 2 CPU / 4G / 5 min. Default image is
     # ghcr.io/catthehacker/ubuntu:act-latest (has git, curl, python3).
-    runs-on: codeberg-small
+    runs-on: small
     timeout-minutes: 5
     steps:
       - uses: https://code.forgejo.org/actions/checkout@v4
