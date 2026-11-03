@@ -13,8 +13,7 @@ env:
 
 jobs:
   lint:
-    # Codeberg hosted runner: 2 CPU / 4G / 5 min. Default image is
-    # ghcr.io/catthehacker/ubuntu:act-latest (has git, curl, python3).
+    # Default image needs git, curl, python3 and apt.
     runs-on: small
     timeout-minutes: 5
     steps:
@@ -35,7 +34,10 @@ jobs:
           echo "${SHELLCHECK_SHA256}  shellcheck.tar.xz" | sha256sum -c -
           tar xJf shellcheck.tar.xz --strip-components=1 "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" && mv shellcheck "$HOME/.local/bin/"
 
-          sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends lua5.4 >/dev/null
+          # Self-hosted images run as root without sudo
+          SUDO=; [ "$(id -u)" -eq 0 ] || SUDO=sudo
+          $SUDO apt-get update -qq
+          $SUDO apt-get install -y -qq --no-install-recommends lua5.4 >/dev/null
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Secret scan
