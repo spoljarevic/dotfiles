@@ -1,0 +1,27 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // One press: open the dock shell, then run the terminal-side setup in it
+      "ctrl-alt-shift-k": ["workspace::SendKeystrokes", "ctrl-alt-shift-f11 ctrl-alt-shift-f12"],
+      // Helper: open the right terminal dock with a plain shell
+      "ctrl-alt-shift-f11": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      // Helper: start claude in this shell, split a shell below, jump back to code
+      "ctrl-alt-shift-f12": [
+        "action::Sequence",
+        [
+          ["terminal::SendText", "claude\n"],
+          "pane::SplitDown",
+          "workspace::ActivatePaneLeft"
+        ]
+      ],
+      // Fallback: pressing the key again inside the shell finishes the setup
+      "ctrl-alt-shift-k": ["workspace::SendKeystrokes", "ctrl-alt-shift-f12"]
+    }
+  }
+]
